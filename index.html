@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise 💌</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(120deg,#ffe6eb,#fff0f5,#ffe6f0);background-size:200% 200%;animation:bgMove 6s infinite alternate;overflow:hidden;color:#333;}
+@keyframes bgMove{0%{background-position:left;}100%{background-position:right;}}
+.section{display:none;opacity:0;transform:scale(.98);height:100vh;justify-content:center;align-items:center;flex-direction:column;text-align:center;padding:20px;transition:opacity .6s,transform .6s;}
+.section.active{display:flex;opacity:1;transform:scale(1);}
+.hidden{display:none!important;}
+.card{background:rgba(255,255,255,.85);backdrop-filter:blur(12px);padding:35px 25px;border-radius:20px;box-shadow:0 0 25px rgba(255,182,193,.4);max-width:600px;width:95%;animation:fadeIn 1.5s ease;z-index:2;text-align:center;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.handwritten{font-family:'Great Vibes',cursive;color:#e91e63;font-size:2em;line-height:1.4;}
+.signature{font-family:'Great Vibes',cursive;font-size:1.6em;margin-top:15px;color:#e91e63;}
+.btn{background:#e91e63;color:#fff;border:none;padding:10px 25px;border-radius:12px;margin-top:20px;cursor:pointer;font-size:1em;transition:.3s;box-shadow:0 0 10px rgba(233,30,99,.4);}
+.btn:hover{transform:scale(1.05);background:#c2185b;}
+.btn.outline{background:transparent;color:#e91e63;border:2px solid #e91e63;}
+.btn.confirm{background:#ff6699;}
+.btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+#heart-rain div{position:fixed;color:#ff4d6d;font-size:20px;animation:fall linear forwards;opacity:.9;z-index:0;}
+@keyframes fall{0%{transform:translateY(0) rotate(0);}100%{transform:translateY(110vh) rotate(360deg);opacity:0;}}
+input[type=password]{padding:10px;width:80%;border-radius:8px;border:1px solid #e91e63;outline:none;margin-top:15px;text-align:center;}
+.hint{font-size:.9em;color:#777;margin-top:10px;}
+.quote{font-style:italic;color:#444;line-height:1.6;white-space:pre-line;}
+.gif-embed-wrap{width:160px;margin:10px auto 18px;border-radius:15px;overflow:hidden;}
+.gif-embed-wrap img{width:100%;height:auto;display:block;}
+@media(max-width:420px){.gif-embed-wrap{width:120px;}}
+#loadingPage{background:linear-gradient(135deg,#fff0f5,#ffe4ec,#ffd9e8);color:#e91e63;}
+.loader-circle{width:90px;height:90px;border-radius:50%;border:6px solid #ffc0d4;border-top:6px solid #e91e63;animation:spin 1s infinite linear;margin:15px auto;}
+@keyframes spin{100%{transform:rotate(360deg);}}
+.shine-text{font-size:1.4em;font-weight:500;background:linear-gradient(90deg,#e91e63,#ff8fb3,#e91e63);-webkit-background-clip:text;color:transparent;animation:shine 2s infinite;}
+@keyframes shine{0%{background-position:0%;}100%{background-position:100%;}}
+.yes-card{max-width:380px;padding:22px 18px 26px;border-radius:20px;background:linear-gradient(145deg,#fff,#f2f2f2);box-shadow:0 18px 40px rgba(0,0,0,.15);text-align:center;animation:fadeIn .8s;}
+.yes-title{margin:14px 0 10px;font-size:30px;color:#ff4d6d;}
+.yes-text p{font-size:14.5px;line-height:1.6;color:#444;margin:6px 0;}
+.insta-box{margin:18px auto 10px;padding:10px 14px;display:flex;align-items:center;gap:10px;border-radius:14px;background:#fafafa;box-shadow:inset 0 0 0 1px #eee;justify-content:center;}
+.insta-box img{width:22px;height:22px;border-radius:6px;}
+.insta-box a{color:#d62976;font-weight:600;text-decoration:none;}
+.insta-box a:hover{text-decoration:underline;}
+</style>
+</head>
+
+<body>
+
+<div id="heart-rain"></div>
+
+<audio id="bgAudio" loop>
+  <source src="https://raw.githubusercontent.com/codewithshubhu/Surprise/main/music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="app">
+
+<section id="loadingPage" class="section active">
+  <div class="card">
+    <div class="loader-circle"></div>
+    <h2 class="handwritten">Just a moment… 💌</h2>
+    <p class="shine-text">Preparing your surprise ✨</p>
+  </div>
+</section>
+
+<section id="passwordPage" class="section hidden">
+  <div class="card auth-card">
+    <h1 class="handwritten">Welcome to my page</h1>
+    <p>I don’t know how you’ll react to this, but it’s a small thing I made just for you. 🩷 💌</p>
+    <form id="pwForm">
+      <input type="password" id="pwInput" placeholder="Enter password" required>
+      <button class="btn">Open</button>
+    </form>
+    <p class="hint">Hint: It's a special date 💭</p>
+  </div>
+</section>
+
+<section id="mainPage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <img src="introHeart.gif" alt="introHeart">
+    </div>
+    <h2 class="handwritten">Hey —</h2>
+    <p id="typewriter"></p>
+    <button class="btn" id="toWelcome">Next →</button>
+  </div>
+</section>
+
+<section id="welcomePage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <img src="helloWave.gif" alt="helloWave">
+    </div>
+    <h2 class="handwritten">Hi! I’m <span style="white-space:nowrap;">Shubham Mishra</span></h2>
+    <p class="lead">Actually I’m a pianist 🎹 and love to code.<br>That's how I made this for you! 🎉.</p>
+    <button class="btn" id="continueBtn">Continue →</button>
+  </div>
+</section>
+
+<section id="quotePage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <img src="deepThought.gif" alt="deepThought">
+    </div>
+    <h2 class="handwritten">Before It’s Too Late</h2>
+    <p class="lead quote">I want to tell you this—
+some things are scary to say, but not saying them leaves regret.
+I don’t want to carry that regret in my life.</p>
+    <button class="btn" id="toProposal">Next →</button>
+  </div>
+</section>
+
+<section id="proposalPage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <img src="friendRequest.gif" alt="friendRequest">
+    </div>
+    <h1 class="handwritten">Can we be friends? 💖</h1>
+    <p style="line-height:1.5;margin-top:15px;">I just want to be the reason you smile ☺️</p>
+    <div class="btn-row">
+      <button id="yesBtn" class="btn confirm">Yes — I'd love that</button>
+      <button id="noBtn" class="btn outline">No</button>
+    </div>
+  </div>
+</section>
+
+<section id="confirmNoPage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <img src="pleaseRethink.gif" alt="pleaseRethink">
+    </div>
+    <h1 class="handwritten">Please reconsider it 💭</h1>
+    <p>Are you sure? Please think one more time. I was really hoping we could be friends… 🥺</p>
+    <div class="btn-row">
+      <button id="confirmYesBtn" class="btn confirm">Yes — let's be friends</button>
+      <button id="confirmNoBtn" class="btn outline">No — really</button>
+    </div>
+  </div>
+</section>
+
+<section id="movingNoPage" class="section hidden">
+  <div class="card">
+    <div class="gif-embed-wrap">
+      <img src="playfulNo.gif" alt="playfulNo">
+    </div>
+    <h1 class="handwritten">Manza na.. Please 🥺</h1>
+    <p>Kitna bhaw khayegi 🙂</p>
+    <div class="btn-row">
+      <button id="moveYesBtn" class="btn confirm">Yes — let's be friends</button>
+      <button id="moveNoBtn" class="btn outline">No — really</button>
+    </div>
+  </div>
+</section>
+
+<section id="yesPage" class="section hidden">
+  <div class="card yes-card" id="yesCard">
+    <div class="gif-embed-wrap">
+      <img src="celebrationYes.gif" alt="celebrationYes">
+    </div>
+    <h2 class="handwritten yes-title">Yay! Thank you ❤️</h2>
+    <div class="yes-text">
+      <p>Congratulations — you’ve just joined my <b>VIP friend list</b> 😂</p>
+      <p><i>Just one rule — keep that smile, it suits you 😜</i></p>
+      <p><i>Next time we meet, don’t act too cool 😉</i></p>
+      <p><i>I know you’re secretly happy too 😏</i></p>
+    </div>
+    <div class="insta-box">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+      <span>Find me on Instagram<br>
+      <a href="https://www.instagram.com/mishraji_shubham" target="_blank">@mishraji_shubham</a></span>
+    </div>
+    <p class="signature">~ Shubham Mishra</p>
+  </div>
+</section>
+
+</div>
+
+<script>
+function createHeart(){
+  const h=document.createElement('div');
+  h.textContent='💖';
+  h.style.left=Math.random()*100+'vw';
+  h.style.animationDuration=3+Math.random()*3+'s';
+  document.getElementById('heart-rain').appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+}
+setInterval(createHeart,300);
+
+function fadeAudio(a,t,d){
+  const s=(t-a.volume)/(d/100);
+  const timer=setInterval(()=>{
+    a.volume=Math.min(1,Math.max(0,a.volume+s));
+    if((s>0&&a.volume>=t)||(s<0&&a.volume<=t))clearInterval(timer);
+  },100);
+}
+function startMusic(){const a=document.getElementById('bgAudio');a.volume=0;a.play().catch(()=>{});fadeAudio(a,.5,2000);}
+function stopMusic(){const a=document.getElementById('bgAudio');fadeAudio(a,0,1500);setTimeout(()=>a.pause(),1600);}
+
+function switchSection(id){
+  document.querySelectorAll('.section').forEach(s=>{
+    if(s.id===id){s.classList.remove('hidden');setTimeout(()=>s.classList.add('active'),10);}
+    else{s.classList.remove('active');setTimeout(()=>s.classList.add('hidden'),600);}
+  });
+  window.scrollTo(0,0);
+}
+
+function encrypt(t){return btoa(t.split('').reverse().join(''));}
+const correctHash = encrypt('4444333');
+
+setTimeout(()=>switchSection('passwordPage'),2000);
+
+pwForm.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(encrypt(pwInput.value.trim())===correctHash){
+    switchSection('mainPage');startMusic();typeWriter();
+  }else alert('Wrong password 😅');
+});
+
+const text="You just hit different… had to make this for you ❤️";
+let i=0;
+function typeWriter(){if(i<text.length){typewriter.textContent+=text.charAt(i++);setTimeout(typeWriter,50);}}
+
+toWelcome.onclick=()=>switchSection('welcomePage');
+continueBtn.onclick=()=>switchSection('quotePage');
+toProposal.onclick=()=>switchSection('proposalPage');
+yesBtn.onclick=()=>{switchSection('yesPage');stopMusic();};
+noBtn.onclick=()=>switchSection('confirmNoPage');
+confirmYesBtn.onclick=()=>{switchSection('yesPage');stopMusic();};
+confirmNoBtn.onclick=()=>switchSection('movingNoPage');
+moveYesBtn.onclick=()=>switchSection('yesPage');
+
+function moveRandomEl(e){
+  e.style.position='absolute';
+  e.style.top=Math.random()*80+10+'%';
+  e.style.left=Math.random()*80+10+'%';
+}
+['mouseenter','mousemove','click'].forEach(ev=>{
+  moveNoBtn.addEventListener(ev,()=>moveRandomEl(moveNoBtn));
+});
+</script>
+
+</body>
+</html>
